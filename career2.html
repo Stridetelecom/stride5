@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Our Team</title>
+    <style>body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+    
+    .container {
+        background: white;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        animation: fadeIn 1s ease-in;
+    }
+    
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+    
+    .form-group {
+        margin-bottom: 1rem;
+    }
+    
+    label {
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+    
+    input[type="text"],
+    input[type="tel"],
+    input[type="email"],
+    input[type="file"],
+    button {
+        width: 100%;
+        padding: 0.5rem;
+        margin-top: 0.2rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    
+    button {
+        background-color: #8f1212;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    
+    button:hover {
+        background-color: #8f1212;
+    }
+    
+    .hidden {
+        display: none;
+    }
+    
+    #successMessage {
+        text-align: center;
+        margin-top: 1rem;
+    }
+    
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Be a Part of Our Company!</h1>
+        <form
+                action="https://formspree.io/f/mzzpllan"
+                method="POST"
+        >
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" name="firstName" required>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" name="lastName" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email ID</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="resume">Resume</label>
+                <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
+            </div>
+            <button type="submit">Submit Application</button>
+        </form>
+        <div id="successMessage" class="hidden">
+            <h2>Thank you! Your application has been submitted successfully! 😊</h2>
+        </div>
+    </div>
+    <script>document.getElementById('careerForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
+    
+        const formData = new FormData(this);
+        
+        // Send the form data to Formspree
+        fetch(this.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                // Show success message
+                document.getElementById('successMessage').classList.remove('hidden');
+                this.reset(); // Reset the form
+            } else {
+                throw new Error('Error in submission');
+            }
+        })
+        .catch(error => {
+            console.error('There was a problem with the submission:', error);
+        });
+    });
+    </script>
+</body>
+</html>
